@@ -10,12 +10,21 @@ var controller = {
     bindEvents: function()
     {
         document.addEventListener('contactListReady', this.onContactListReady, false);
+// warren
+        document.addEventListener('contactLocationReady', this.contactLocationReady, false);
         document.addEventListener('offline', this.onOffline, false);
         document.addEventListener('online', this.onOnline, false);
         document.getElementById('edit_form_button').addEventListener('click', this.onEditClick, false);
         document.getElementById('ad_contact_button').addEventListener('click', this.onAddClick, false);
         document.getElementById('back_button').addEventListener('click', this.onCloseClick, false);
         document.getElementById('save_contact').addEventListener('click', this.onSaveClick, false);
+    },
+// warren
+    contactLocationReady: function(){
+        view.updateFields(model.getEmptyContact());
+    	view.setReadOnly(false);
+      	view.hideContactList();
+    	view.showContactForm();
     },
     onEditClick: function(ev)
     {
@@ -25,10 +34,9 @@ var controller = {
     onAddClick: function(ev)
     {
     	ev.preventDefault();
-    	view.updateFields(model.getEmptyContact());
-    	view.setReadOnly(false);
-      	view.hideContactList();
-    	view.showContactForm();
+        // warren
+        contactLocation.getLocation();
+    	
     },
     onCloseClick: function(ev)
     {
@@ -83,7 +91,10 @@ function start_hockey_heroes_app()
 			view.hideContactForm();
 			
 			controller.init();
+        // warren
+            contactLocation.init();
 			controller.onDeviceReady();
+        
 		//},false);
 	}, false);
 }

@@ -145,9 +145,16 @@ var model = {
 		
 		var addresses = [];
 		var contactAddress = new ContactAddress();
+// warren        
+        if (contactLocation.gotLocation){
+            contactAddress.streetAddress = contactLocation.street;
+            contactAddress.locality = contactLocation.city;
+        contactAddress.region = contactLocation.state;
+        }else{
 		contactAddress.streetAddress = "";
         contactAddress.locality = "";
         contactAddress.region = "";
+        }// end warren
         addresses[0] = contactAddress;
 		contact.addresses = addresses;
 		
@@ -155,6 +162,7 @@ var model = {
     },
     addContact: function(obj, hockeyImport)
     {
+        
 		//if(isNew)this._hero_count = 0;
 		// create a new contact object
 		var contact = navigator.contacts.create();
